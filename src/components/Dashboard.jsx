@@ -1,7 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import LoadingData from './LoadingData';
+import TableData from './TableData';
+
 import './../css/Dashboard.css';
 
 export default function Dashboard() {
+
+    const [pwd, setPwd] = useState({});
+
+    const BASE_URL = 'http://127.0.0.1:5000/api/pwd/';
+
+    const title = `${BASE_URL}`;
+
+    useEffect(() => {
+        axios.get(title)
+            .then(({ data }) => setPwd(data))
+            .catch((error) => console.log('error calling pwd', error))
+    });
+
     return (
         <>
             <div className='search-content'>
@@ -17,17 +34,12 @@ export default function Dashboard() {
                 </div>
             </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>title</th>
-                        <th>user</th>
-                        <th>password</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+            <div className='content'>
+                {Object.values(pwd).length == 0 ?
+                    (<LoadingData />)
+                    :
+                    (<TableData />)}
+            </div>
         </>
     )
 }

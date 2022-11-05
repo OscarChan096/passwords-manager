@@ -1,3 +1,17 @@
 #root {
   margin: 1.5rem;
+  color: #007145;
+  font-weight: bold;
+}
+
+body::-webkit-scrollbar {
+  width: 13px;               /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent;        /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 113, 69, 0.4);    /* color of the scroll thumb */
 }

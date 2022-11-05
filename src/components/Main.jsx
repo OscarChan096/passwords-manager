@@ -13,7 +13,7 @@ const main = () => {
     return (
         <>
             <header>
-                <span className='logo-text'><a href='#'>PASSWORD</a></span>
+                <span className='logo-text'><a href='#'>~/SC&gt;PASSWORDS_</a></span>
                 
                 <button
                     onClick={toggleMenu}
@@ -25,10 +25,10 @@ const main = () => {
 
                 <nav className={`header-nav ${ menuActive ? 'isActive':''}`}>
                     <ul className='header-ul'>
-                        <li className='header-li'>Profile</li>
-                        <li className='header-li'>Settings</li>
-                        <li className='header-li'>Login</li>
-                        <li className='header-li'>About</li>
+                        <a href='#'><li className='header-li'>Profile</li></a>
+                        <a href='#'><li className='header-li'>Settings</li></a>
+                        <a href='#'><li className='header-li'>Login</li></a>
+                        <a href='#'><li className='header-li'>About</li></a>
                     </ul>
                 </nav>
             </header>
