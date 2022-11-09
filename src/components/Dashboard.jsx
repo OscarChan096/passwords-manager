@@ -8,23 +8,39 @@ import './../css/Dashboard.css';
 export default function Dashboard() {
 
     const [pwd, setPwd] = useState({});
+    const [title, setTitle] = useState('');
 
     const BASE_URL = 'http://127.0.0.1:5000/api/pwd/';
 
-    const title = `${BASE_URL}`;
+    const requests = {
+        spTitle: `${BASE_URL}title/`,
+    }
 
     useEffect(() => {
-        axios.get(title)
-            .then(({ data }) => setPwd(data))
-            .catch((error) => console.log('error calling pwd', error))
-    });
+        if (title) {
+            axios.get(`${requests.spTitle}${title.toLocaleLowerCase()}`)
+                .then(({ data }) => setPwd(data))
+                .catch((error) => console.log('error calling pwd', error))
+        }
+    }, [title]);
+
+    const handleChange = (event) => {
+        setTitle(event.target.value);
+    }
+
+    console.log('pwd: ', pwd);
 
     return (
         <>
             <div className='search-content'>
                 <div className='bar-btn'>
                     <div className='search-bar'>
-                        <input className='search' type='search' placeholder='Search' />
+                        <input
+                            className='search'
+                            type='search'
+                            placeholder='Search'
+                            value={title}
+                            onChange={handleChange} />
                     </div>
                     <button className='submit'>
                         <svg className='btn-search-svg' xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
@@ -38,7 +54,7 @@ export default function Dashboard() {
                 {Object.values(pwd).length == 0 ?
                     (<LoadingData />)
                     :
-                    (<TableData />)}
+                    (<TableData data={pwd} />)}
             </div>
         </>
     )

@@ -25,7 +25,7 @@ const main = () => {
 
                 <nav className={`header-nav ${ menuActive ? 'isActive':''}`}>
                     <ul className='header-ul'>
-                        <a href='#'><li className='header-li'>Profile</li></a>
+                        <a href='#'><li className='header-li'>Add</li></a>
                         <a href='#'><li className='header-li'>Settings</li></a>
                         <a href='#'><li className='header-li'>Login</li></a>
                         <a href='#'><li className='header-li'>About</li></a>

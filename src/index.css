@@ -106,7 +106,7 @@ q:after {
   content: none;
 }
 
-/* Configuramos el texto que seleccionamos */
+/* Configuramos el texto que seleccionamos
 ::-moz-selection {
   background-color: var(--negro);
   color: var(--blanco);
@@ -115,7 +115,7 @@ q:after {
 ::selection {
   background-color: var(--negro);
   color: var(--blanco);
-}
+}*/
 
 /* Nivelamos problemas de tipografías y colocación de formularios */
 form,
@@ -126,16 +126,10 @@ button,
 label {
   font-family: inherit;
   font-size: inherit;
-  -webkit-hyphens: auto;
-  -ms-hyphens: auto;
   hyphens: auto;
   background-color: transparent;
   color: inherit;
   display: block;
-  /* opcional */
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
 }
 
 /* Reseteamos las tablas */
@@ -176,4 +170,9 @@ body {
   -webkit-font-smoothing: antialiased;
   /* opcional */
   -moz-osx-font-smoothing: grayscale;
+}
+
+::selection{
+  color: rgb(0, 80, 100);
+  background-color: black;
 }

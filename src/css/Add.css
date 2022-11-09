@@ -1,0 +1,54 @@
+.form-add{
+    display: flex;
+}
+
+form{
+    margin: auto;
+}
+
+.form-title, .form-user, .form-password, .form-submit, .gener-btn{
+    width: 85%;  
+    padding: 10px;
+    border: 1px solid #007145;
+    border-radius: 10px;
+    margin: 15px;
+    outline: none;
+}
+
+.form-title::placeholder, .form-user::placeholder, .form-password::placeholder, .form-submit::placeholder{
+    color: #00472c;
+}
+
+.form-submit, .gener-btn{
+    cursor: pointer;
+}
+
+.form-submit:hover, .gener-btn:hover, .lb:hover{
+    color: white;
+    background-color: #007145;
+}
+
+.checkbox-generate{
+    display: flex;
+    justify-content: center;
+}
+
+input.bx{
+    appearance: none;
+}
+
+.lb{
+    width: 39%;
+    margin: 5px;
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #007145;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.bx:checked + .lb{
+    color: white;
+    background-color: #00472c;
+}
+

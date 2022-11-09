@@ -27,9 +27,21 @@ header{
     justify-content: flex-end;
     align-items: center;
     list-style: none;
+    user-select: none;
 }
 .header-li{
     margin: 0 .5em;
+    border: 1px outset transparent;
+    transition: .5s;
+}
+
+.header-li:hover{
+    border-bottom: 1px outset #00945b;
+    border-top: 1px outset #00945b;
+}
+
+.logo-text{
+    user-select: none;
 }
 @media screen and (max-width:480px){
 

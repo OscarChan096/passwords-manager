@@ -2,7 +2,9 @@ import React from 'react'
 
 import './../css/TableData.css';
 
-const TableData = () => {
+const TableData = ({ data }) => {
+
+    console.log('data: ', data);
 
     return (
         <>
@@ -15,7 +17,14 @@ const TableData = () => {
                         <th>password</th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                    {data.map(({id,title,username,userpassword},index) => (
+                        <tbody key={index}>
+                            <td>{id}</td>
+                            <td>{title}</td>
+                            <td>{username}</td>
+                            <td>{userpassword}</td>
+                        </tbody>
+                    ))}
             </table>
         </>
     )
