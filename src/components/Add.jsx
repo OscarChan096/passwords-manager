@@ -5,25 +5,32 @@ import './../css/Add.css';
 
 const Add = () => {
 
-    const [isSymbol, setIsSymbol] = useState(true);
-    const [isNumber, setIsNumber] = useState(true);
-    const [isMayus, setIsMayus] = useState(true);
-    const [isMinus, setIsMiuns] = useState(true);
+    const [limitChar, setLimitChar] = useState(8);
+    const [passwordG, setPasswordG] = useState('');
 
-    const changeSymbol = () => {
-        setIsSymbol(!isSymbol);
+    const generatePassword = () => {
+        let pwd = '';
+        const arr = ['~-+:_#.@', '0123456789', 'abcdefghijklmnopqrstuvwxyz', ''];
+        if (passwordG.length > 0)
+            setPasswordG('');
+
+        for (let i = 0; i < limitChar; i++) {
+            let index = Math.floor(Math.random() * 4);
+            let char = arr[index];
+            let size = char.length;
+            pwd += index == 3 ? String.fromCharCode(arr[2].charCodeAt(Math.random() * 26) - 32) : char.charAt(Math.random() * size);
+        }
+
+        setPasswordG(pwd);
     }
 
-    const changeNumber = () => {
-        setIsNumber(!isNumber);
+    const changeLimit = (event) => {
+        if (event.target.value >= 8)
+            setLimitChar(event.target.value);
     }
 
-    const changeMayus = () => {
-        setIsMayus(!isMayus);
-    }
-
-    const changeMinus = () => {
-        setIsMiuns(!isMinus);
+    const handleChangePwd = (event) => {
+        setPasswordG(event.target.value);
     }
 
     return (
@@ -32,25 +39,13 @@ const Add = () => {
                 <form>
                     <input className='form-title' type='text' placeholder='Title' />
                     <input className='form-user' type='text' placeholder='User' />
-                    <input className='form-password' type='password' placeholder='Password' />
+                    <input className='form-password' type='text' placeholder='Password' onChange={handleChangePwd} value={passwordG}/>
                     <div className='generate-pwds'>
-                        <div className='checkbox-generate'>
-                            <input className='bx' type='checkbox' id='symbol' name='Symbol' onChange={changeSymbol} checked={isSymbol}/>
-                            <label className='lb' htmlFor='symbol'>Symbol</label>
-                            <input className='bx' type='checkbox' id='number' name='Number' onChange={changeNumber} checked={isNumber}/>
-                            <label className='lb' htmlFor='number'>Number</label>
-                        </div>
-                        <div className='checkbox-generate'>
-                            <input className='bx' type='checkbox' id='mayus' name='Mayus' onChange={changeMayus} checked={isMayus}/>
-                            <label className='lb' htmlFor='mayus'>Mayus</label>
-                            <input className='bx' type='checkbox' id='minus' name='Minus' onChange={changeMinus} checked={isMinus}/>
-                            <label className='lb' htmlFor='minus'>Minus</label>
-                        </div>
-                        <button className='gener-btn'>Generate Password</button>
+                        <input className='limit-password' type='number' id='limit' name='limit' onChange={changeLimit} value={limitChar} />
+                        <div className='gener-btn' onClick={generatePassword}>Generate Password</div>
                     </div>
                     <input className='form-submit' type='submit' value='Save' />
                 </form>
-
             </div>
         </>
     )
