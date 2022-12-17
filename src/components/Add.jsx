@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, {useState} from 'react';
 
 import './../css/Add.css';
 
@@ -33,6 +32,10 @@ const Add = () => {
         setPasswordG(event.target.value);
     }
 
+    const save = () => {
+        
+    }
+
     return (
         <>
             <div className='form-add'>
@@ -41,10 +44,10 @@ const Add = () => {
                     <input className='form-user' type='text' placeholder='User' />
                     <input className='form-password' type='text' placeholder='Password' onChange={handleChangePwd} value={passwordG}/>
                     <div className='generate-pwds'>
-                        <input className='limit-password' type='number' id='limit' name='limit' onChange={changeLimit} value={limitChar} />
+                        <input className='limit-password' type='number' id='limit' name='limit' placeholder='8' onChange={changeLimit} value={limitChar} />
                         <div className='gener-btn' onClick={generatePassword}>Generate Password</div>
                     </div>
-                    <input className='form-submit' type='submit' value='Save' />
+                    <input className='form-submit' type='submit' value='Save' onClick={save}/>
                 </form>
             </div>
         </>

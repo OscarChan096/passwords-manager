@@ -25,8 +25,12 @@ form{
     user-select: none;
 }
 
-.form-submit:hover, .gener-btn:hover, .lb:hover{
+.form-submit:hover, .gener-btn:hover{
     color: white;
     background-color: #007145;
 }
+
+
+
+
 

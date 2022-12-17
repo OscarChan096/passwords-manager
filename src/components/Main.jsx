@@ -1,19 +1,35 @@
 import React from 'react';
 import { useState } from 'react';
-import './../css/Main.css';
+import { useNavigate } from 'react-router-dom';
 import Dashboard from './Dashboard';
 
+import './../css/Main.css';
+
 const main = () => {
+
+    const navigate = useNavigate();
 
     const [menuActive, setMenuActive] = useState( false );
     const toggleMenu = () => {
         setMenuActive( !menuActive );
     }
 
+    const add = () => {
+        navigate('/add');
+    }
+
+    const login = () => {
+        navigate('/login');
+    }
+
+    const about = () => {
+        navigate('/about');
+    }
+
     return (
         <>
             <header>
-                <span className='logo-text'><a href='#'>~/SC&gt;PASSWORDS_</a></span>
+                <span className='logo-text'><a href='#'>~/0SKR&gt;PASSWORDS_</a></span>
                 
                 <button
                     onClick={toggleMenu}
@@ -25,10 +41,10 @@ const main = () => {
 
                 <nav className={`header-nav ${ menuActive ? 'isActive':''}`}>
                     <ul className='header-ul'>
-                        <a href='#'><li className='header-li'>Add</li></a>
-                        <a href='#'><li className='header-li'>Settings</li></a>
-                        <a href='#'><li className='header-li'>Login</li></a>
-                        <a href='#'><li className='header-li'>About</li></a>
+                        <li className='header-li' onClick={add}>Add</li>
+                        <li className='header-li'>Settings</li>
+                        <li className='header-li' onClick={login}>Login</li>
+                        <li className='header-li' onClick={about}>About</li>
                     </ul>
                 </nav>
             </header>

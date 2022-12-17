@@ -1,0 +1,51 @@
+.login-content{
+    display: flex;
+}
+
+.form-login{
+    margin: 20% auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.pin-login{
+    width: 85%;  
+    padding: 10px;
+    border: 1px solid #007145;
+    border-radius: 10px;
+    margin: 15px;
+    outline: none;
+    text-align: center;
+}
+
+.pin-login::placeholder{
+    color: #00472c;
+}
+
+.error{
+    text-align: center;
+    font-size: 0.8rem;
+    color: rgb(119, 0, 0);
+}
+
+.hide{
+    visibility: visible;
+}
+
+.submit-login{
+    margin: auto;
+    cursor: pointer;
+    text-align: center;
+    user-select: none;
+    width: 85%;  
+    padding: 10px;
+    border: 1px solid #007145;
+    border-radius: 10px;
+    margin: 15px;
+    outline: none;
+}
+
+.submit-login:hover{
+    color: white;
+    background-color: #007145;
+}

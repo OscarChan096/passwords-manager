@@ -33,6 +33,7 @@ header{
     margin: 0 .5em;
     border: 1px outset transparent;
     transition: .5s;
+    cursor: pointer;
 }
 
 .header-li:hover{
