@@ -1,5 +1,6 @@
 .form-add{
     display: flex;
+    margin-top: 15%;
 }
 
 form{
@@ -28,6 +29,12 @@ form{
 .form-submit:hover, .gener-btn:hover{
     color: white;
     background-color: #007145;
+}
+
+@media screen and (min-width:480px){
+    .form-add{
+        margin-top: 7%;
+    }
 }
 
 

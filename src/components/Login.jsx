@@ -3,11 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 import './../css/Login.css';
 
-const Login = () => {
+const Login = ({userLogged}) => {
 
     const navigate = useNavigate();
-
-    //const [authentication, setAtuthentication] = useState(false);
     const [pin, setPin] = useState('');
     const [show, setShow] = useState(false);
 
@@ -15,10 +13,12 @@ const Login = () => {
         setPin(event.target.value);
     }
 
-    const validatePin = () => {
-        if (pin == '9609') {
+    const validatePin = (event) => {
+        event.preventDefault();
+        if(pin == '9609'){
+            userLogged(true);
             navigate('/sp');
-        } else {
+        }else{
             setShow(true);
         }
     }

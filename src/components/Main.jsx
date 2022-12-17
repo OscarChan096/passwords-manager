@@ -1,25 +1,24 @@
-import React from 'react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Outlet , useNavigate} from 'react-router-dom';
 import Dashboard from './Dashboard';
 
 import './../css/Main.css';
 
 const main = () => {
 
+    const [menuActive, setMenuActive] = useState(false);
     const navigate = useNavigate();
-
-    const [menuActive, setMenuActive] = useState( false );
+    
     const toggleMenu = () => {
-        setMenuActive( !menuActive );
+        setMenuActive(!menuActive);
+    }
+
+    const main = () => {
+        navigate('/sp');
     }
 
     const add = () => {
         navigate('/add');
-    }
-
-    const login = () => {
-        navigate('/login');
     }
 
     const about = () => {
@@ -29,8 +28,8 @@ const main = () => {
     return (
         <>
             <header>
-                <span className='logo-text'><a href='#'>~/0SKR&gt;PASSWORDS_</a></span>
-                
+                <span className='logo-text'>~/0SKR&gt;PASSWORDS_</span>
+
                 <button
                     onClick={toggleMenu}
                     className='header-bttn'>
@@ -39,16 +38,22 @@ const main = () => {
                     </svg>
                 </button>
 
-                <nav className={`header-nav ${ menuActive ? 'isActive':''}`}>
+                <nav className={`header-nav ${menuActive ? 'isActive' : ''}`}>
                     <ul className='header-ul'>
+                        <li className='header-li' onClick={main}>Inicio</li>
                         <li className='header-li' onClick={add}>Add</li>
                         <li className='header-li'>Settings</li>
-                        <li className='header-li' onClick={login}>Login</li>
+                        <li className='header-li'>Login</li>
                         <li className='header-li' onClick={about}>About</li>
                     </ul>
                 </nav>
             </header>
-            <Dashboard />
+
+            <main>
+                <Outlet />
+            </main>
+
+            <footer></footer>
         </>
     )
 }
