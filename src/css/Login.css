@@ -3,7 +3,7 @@
 }
 
 .form-login{
-    margin: 20% auto;
+    margin: 15% auto;
     justify-content: center;
     align-items: center;
 }
@@ -20,16 +20,6 @@
 
 .pin-login::placeholder{
     color: #00472c;
-}
-
-.error{
-    text-align: center;
-    font-size: 0.8rem;
-    color: rgb(119, 0, 0);
-}
-
-.hide{
-    visibility: visible;
 }
 
 .submit-login{

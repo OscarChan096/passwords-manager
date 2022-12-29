@@ -24,6 +24,7 @@ form{
     cursor: pointer;
     text-align: center;
     user-select: none;
+    font-weight: bold;
 }
 
 .form-submit:hover, .gener-btn:hover{

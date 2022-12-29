@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Outlet , useNavigate} from 'react-router-dom';
-import Dashboard from './Dashboard';
 
 import './../css/Main.css';
 
@@ -42,8 +41,6 @@ const main = () => {
                     <ul className='header-ul'>
                         <li className='header-li' onClick={main}>Inicio</li>
                         <li className='header-li' onClick={add}>Add</li>
-                        <li className='header-li'>Settings</li>
-                        <li className='header-li'>Login</li>
                         <li className='header-li' onClick={about}>About</li>
                     </ul>
                 </nav>

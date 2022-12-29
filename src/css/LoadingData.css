@@ -1,6 +1,6 @@
 .animation-load{
-    margin-top: 15%;
-    margin-left: 48%;
+    margin-top: 50%;
+    margin-left: auto;
 }
 
 .loader {
@@ -71,7 +71,7 @@
 
 @media screen and (max-width:480px) {
     .animation-load{
-        margin-top: 25%;
-        margin-left: 35%;
+        margin-top: 50%;
+        margin-left: auto;
     }
 }

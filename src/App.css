@@ -1,6 +1,7 @@
 #root {
   color: #007145;
-  font-weight: bold;
+  font-size: 1.1rem;
+  font-family: 'Inconsolata', monospace;
 }
 
 body::-webkit-scrollbar {

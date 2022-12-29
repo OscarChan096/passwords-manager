@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import LoadingData from './LoadingData';
 import TableData from './TableData';
+import Cards from './cards';
 
 import './../css/Dashboard.css';
 
@@ -40,7 +41,8 @@ export default function Dashboard() {
                             type='search'
                             placeholder='Search'
                             value={title}
-                            onChange={handleChange} />
+                            onChange={handleChange}
+                            autoFocus />
                     </div>
                     <button className='submit'>
                         <svg className='btn-search-svg' xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
@@ -51,10 +53,12 @@ export default function Dashboard() {
             </div>
 
             <div className='content'>
-                {Object.values(pwd).length == 0 ?
-                    (<LoadingData />)
-                    :
-                    (<TableData data={pwd} />)}
+                <div className='data'>
+                    {Object.values(pwd).length == 0 ?
+                        (<LoadingData />)
+                        :
+                        (<Cards pwd={pwd} />)}
+                </div>
             </div>
         </>
     )

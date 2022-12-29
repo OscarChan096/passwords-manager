@@ -34,7 +34,11 @@ button.submit {
 }
 
 .content{
-	margin: 3%;
+	display: flex;
+}
+
+.data{
+	margin: auto;
 }
 
 @media screen and (min-width:480px) {

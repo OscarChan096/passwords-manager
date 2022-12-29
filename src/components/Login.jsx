@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 import './../css/Login.css';
+import MessageError from './MessageError';
 
 const Login = ({userLogged}) => {
 
@@ -33,7 +34,8 @@ const Login = ({userLogged}) => {
                         placeholder='PIN'
                         maxLength='4'
                         onChange={handleChangePin}
-                        value={pin} />
+                        value={pin} 
+                        autoFocus />
                     <input
                         className='submit-login'
                         type='submit'
@@ -41,7 +43,7 @@ const Login = ({userLogged}) => {
                         onClick={validatePin}
                         onKeyUp={validatePin} />
                 </form>
-                {show && <label className='error'>Contraseña incorrecta</label>}
+                {show && <MessageError message={'NIP incorrecto'}/>}
             </div>
         </div>
     )
