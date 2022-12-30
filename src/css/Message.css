@@ -4,3 +4,10 @@
     color: rgb(119, 0, 0);
     margin: auto;
 }
+
+.succes{
+    text-align: center;
+    font-size: 0.8rem;
+    color: #007145;
+    margin: auto;
+}

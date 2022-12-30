@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import MessageError from './MessageError';
+import MessageSucces from './MessageSucces';
 
 import './../css/Cards.css';
 
@@ -10,6 +12,9 @@ const Cards = ({ pwd }) => {
     const [editPassword, setEditPassword] = useState('');
     const [edit, setEdit] = useState(true);
     const [show, setShow] = useState('password');
+    const [error, setError] = useState(false);
+    const [message, setMessage] = useState('');
+    const [succes, setSucces] = useState(false);
 
     const BASE_URL = 'http://127.0.0.1:5000/api/pwd/';
 
@@ -25,8 +30,12 @@ const Cards = ({ pwd }) => {
         setEditPassword(event.target.value);
     }
 
-    const editable = () => {
+    const editable = (title, username, userpassword, index) => {
+        setEditTitle(title);
+        setEditUser(username);
+        setEditPassword(userpassword);
         setEdit(!edit);
+        console.log(index);
     }
 
     const showPassword = () => {
@@ -37,12 +46,26 @@ const Cards = ({ pwd }) => {
     }
 
     const update = async (id) => {
-        console.log("id: ", id);
         let load = { title: editTitle, username: editUser, userpassword: editPassword }
-        let res = await axios.put(`${BASE_URL}/${id}`, load);
-        let data = res.data;
-        console.log(data);
+        await axios.put(`${BASE_URL}/${id}`, load)
+            .catch(error => {
+                setError(true);
+                setMessage(error);
+            });
         setEdit(!edit);
+        setMessage('Actualizado');
+        setSucces(true);
+    }
+
+    const del = async (id) => {
+        // crear una ventana modal de confirmacion
+        await axios.delete(`${BASE_URL}/${id}`)
+            .catch(error => {
+                setError(true);
+                setMessage(error);
+            });
+        setMessage('elminado');
+        setSucces(true);
     }
 
     return (
@@ -75,13 +98,15 @@ const Cards = ({ pwd }) => {
                 </div>
                 <div className='edit-card'>
                     {edit ?
-                        (<button id='edit' className='btn-edit' onClick={editable}>Editar</button>)
+                        (<button id='edit' className='btn-edit' onClick={() => editable(title, username, userpassword, index)}>Editar</button>)
                         :
                         (<button id='save' className='btn-edit' onClick={() => update(id)}>Guardar</button>)
                     }
-                    <button id='delete' className='btn-edit'>Eliminar</button>
+                    <button id='delete' className='btn-edit' onClick={() => del(id)}>Eliminar</button>
                 </div >
                 {!edit && <button id='cancel' className='btn-edit' onClick={editable}>Cancelar</button>}
+                {error && <MessageError message={message} />}
+                {succes && <MessageSucces message={message} />}
             </div>
         ))
     )

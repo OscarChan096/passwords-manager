@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import './../css/Add.css';
 import MessageError from './MessageError';
+import MessageSucces from './MessageSucces';
 
 const Add = () => {
 
@@ -11,6 +12,9 @@ const Add = () => {
     const [title, setTitle] = useState('');
     const [username, setUsername] = useState('');
     const [error, setError] = useState(false);
+    const [message, setMessage] = useState('');
+    const [succes, setSucces] = useState(false);
+
     const BASE_URL = 'http://127.0.0.1:5000/api/pwd/';
 
     const generatePassword = () => {
@@ -49,18 +53,26 @@ const Add = () => {
     const save = async () => {
         if (title.length != 0 && passwordG.length != 0) {
             let load = { title: title, username: username, userpassword: passwordG };
-            let res = await axios.post(BASE_URL, load);
-            let data = res.data;
-            console.log(data);
+            await axios.post(BASE_URL, load)
+                //.then(response => console.log(response.data))
+                .catch(error => {
+                    setError(true);
+                    setMessage(error);
+                });
+            setError(false);
+            setSucces(true);
+            setMessage('guardado con exito');
         } else {
+            setSucces(false);
             setError(true);
+            setMessage('Hay espacios vacios en el formulario');
         }
     }
 
     return (
         <>
             <div className='form-add'>
-                <form>
+                <div className='form'>
                     <input className='form-title'
                         type='text'
                         placeholder='Title'
@@ -84,9 +96,10 @@ const Add = () => {
                         <div className='gener-btn' onClick={generatePassword}>Generate Password</div>
                     </div>
                     <button className='form-submit' type='submit' value='Save' onClick={save}>Save</button>
-                </form>
+                </div>
             </div>
-            {error && <MessageError message={'Hay espacios vacios en el formulario'} />}
+            {error && <MessageError message={message} />}
+            {succes && <MessageSucces message={message} />}
         </>
     )
 }

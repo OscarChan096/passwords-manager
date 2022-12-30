@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './../css/MessageError.css';
+import './../css/Message.css';
 
 const MessageError = ({message}) => {
     return (
