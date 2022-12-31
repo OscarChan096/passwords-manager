@@ -27,11 +27,12 @@ const Login = ({userLogged}) => {
     return (
         <div className='login-content'>
             <div className='form-login'>
+            <span className='logo-text login-logo'>~/0SKR&gt;PASSWORDS_</span>
                 <form>
                     <input
                         className='pin-login'
                         type='password'
-                        placeholder='PIN'
+                        placeholder='NIP'
                         maxLength='4'
                         onChange={handleChangePin}
                         value={pin} 

@@ -3,9 +3,14 @@
 }
 
 .form-login{
-    margin: 15% auto;
+    margin: 18% auto;
     justify-content: center;
     align-items: center;
+}
+
+.login-logo{
+    font-size: 1.65rem;
+
 }
 
 .pin-login{
