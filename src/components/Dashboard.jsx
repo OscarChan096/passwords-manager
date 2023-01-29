@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import LoadingData from './LoadingData';
-import TableData from './TableData';
-import Cards from './cards';
+import Cards from './Cards';
 
 import './../css/Dashboard.css';
 
@@ -28,8 +27,6 @@ export default function Dashboard() {
     const handleChange = (event) => {
         setTitle(event.target.value);
     }
-
-    console.log('pwd: ', pwd);
 
     return (
         <>
