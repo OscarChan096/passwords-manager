@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { desencrypt, encrypt } from './../encryption';
 
 import './../css/Add.css';
 import MessageError from './MessageError';
@@ -15,7 +16,23 @@ const Add = () => {
     const [message, setMessage] = useState('');
     const [succes, setSucces] = useState(false);
 
-    const BASE_URL = 'http://127.0.0.1:5000/api/pwd/';
+    const BASE_URL = 'https://apex.oracle.com/pls/apex/oskdev/APIPWD/pwds';
+
+    /*const generatePassword = () => {
+        let pwd = '';
+        const arr = ['~-+:_#.@', '0123456789', 'abcdefghijklmnopqrstuvwxyz', ''];
+        if (passwordG.length > 0)
+            setPasswordG('');
+
+        for (let i = 0; i < limitChar; i++) {
+            let index = Math.floor(Math.random() * 4);
+            let char = arr[index];
+            let size = char.length;
+            pwd += index == 3 ? String.fromCharCode(arr[2].charCodeAt(Math.random() * 26) - 32) : char.charAt(Math.random() * size);
+        }
+
+        setPasswordG(pwd);
+    }*/
 
     const generatePassword = () => {
         let pwd = '';
@@ -52,7 +69,33 @@ const Add = () => {
 
     const save = async () => {
         if (title.length != 0 && passwordG.length != 0) {
-            let load = { title: title, username: username, userpassword: passwordG };
+            let password = encrypt(passwordG);
+            console.log('password encrypt: ',password);
+            console.log('password desencrypt: ',desencrypt(password));
+            let user = encrypt(username);
+            console.log('password encrypt: ',user);
+            console.log('password desencrypt: ',desencrypt(user));
+            let object = { TITLE: title, USERNAME: user, USERPASSWORD: password };
+            await axios.post(BASE_URL, object)
+                .then(response => console.log('response add: ',response.data))
+                .catch(error => {
+                    setError(true);
+                    setMessage(error);
+                });
+            setError(false);
+            setSucces(true);
+            setMessage('guardado con exito');
+        } else {
+            setSucces(false);
+            setError(true);
+            setMessage('Hay espacios vacios en el formulario');
+        }
+    }
+
+    /*const save = async () => {
+        console.log(encrypt(passwordG));
+        if (title.length != 0 && passwordG.length != 0) {
+            let load = { title: title, username: username, userpassword: encrypt(passwordG) };
             await axios.post(BASE_URL, load)
                 //.then(response => console.log(response.data))
                 .catch(error => {
@@ -67,7 +110,7 @@ const Add = () => {
             setError(true);
             setMessage('Hay espacios vacios en el formulario');
         }
-    }
+    }*/
 
     return (
         <>

@@ -7,24 +7,33 @@ import './../css/Dashboard.css';
 
 export default function Dashboard() {
 
-    const [pwd, setPwd] = useState({});
+    const [pwd, setPwd] = useState([]);
     const [title, setTitle] = useState('');
+    const [find, setFind] = useState([]);
 
-    const BASE_URL = 'http://127.0.0.1:5000/api/pwd/';
+    const BASE_URL = 'https://apex.oracle.com/pls/apex/oskdev/APIPWD/pwds';
 
-    const requests = {
+    /*const requests = {
         spTitle: `${BASE_URL}title/`,
-    }
+    }*/
 
-    useEffect(() => {
+    // cada vez que se agregue datos a "title" se invoca este useEffect para buscar el valor de title en la base de datos
+    /*useEffect(() => {
         if (title) {
             axios.get(`${requests.spTitle}${title.toLocaleLowerCase()}`)
                 .then(({ data }) => setPwd(data))
                 .catch((error) => console.log('error calling pwd', error))
         }
-    }, [title]);
+    }, [title]);*/
+
+    useEffect(() => {
+        axios.get(BASE_URL)
+            .then(({ data }) => setPwd(data.items))
+            .catch((error) => console.log('error calling pwd', error))
+    },[]);
 
     const handleChange = (event) => {
+        setFind(pwd.filter(({title}) => title == event.target.value));
         setTitle(event.target.value);
     }
 
@@ -51,10 +60,10 @@ export default function Dashboard() {
 
             <div className='content'>
                 <div className='data'>
-                    {Object.values(pwd).length == 0 ?
+                    {Object.values(find).length == 0 ?
                         (<LoadingData />)
                         :
-                        (<Cards pwd={pwd} />)}
+                        (<Cards pwd={find} />)}
                 </div>
             </div>
         </>

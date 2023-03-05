@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import MessageError from './MessageError';
 import MessageSucces from './MessageSucces';
+import { desencrypt, encrypt } from '../encryption';
 
 import './../css/Cards.css';
 
@@ -16,7 +17,7 @@ const Cards = ({ pwd }) => {
     const [message, setMessage] = useState('');
     const [succes, setSucces] = useState(false);
 
-    const BASE_URL = 'http://127.0.0.1:5000/api/pwd/';
+    const BASE_URL = 'https://apex.oracle.com/pls/apex/oskdev/APIPWD/pwds';
 
     const handleChangeTitle = (event) => {
         setEditTitle(event.target.value);
@@ -46,8 +47,11 @@ const Cards = ({ pwd }) => {
     }
 
     const update = async (id) => {
-        let load = { title: editTitle, username: editUser, userpassword: editPassword }
-        await axios.put(`${BASE_URL}/${id}`, load)
+        let password = encrypt(editPassword);
+        let user = encrypt(editUser);
+        let load = { ID:id, TITLE: editTitle, USERNAME: user, USERPASSWORD: password }
+        await axios.put(BASE_URL, load)
+            .then(response => console.log(response))
             .catch(error => {
                 setError(true);
                 setMessage(error);
@@ -59,7 +63,9 @@ const Cards = ({ pwd }) => {
 
     const del = async (id) => {
         // crear una ventana modal de confirmacion
-        await axios.delete(`${BASE_URL}/${id}`)
+        let del = { ID:id }
+        await axios.delete(BASE_URL, del)
+            .then(response => console.log(response))
             .catch(error => {
                 setError(true);
                 setMessage(error);
@@ -80,12 +86,12 @@ const Cards = ({ pwd }) => {
                         </li>
                         <li>
                             <span className='user'>User:</span>
-                            <input type='text' value={edit ? username : editUser} onChange={handleChangeUser} placeholder='user' disabled={edit} />
+                            <input type='text' value={edit ? desencrypt(username) : desencrypt(editUser)} onChange={handleChangeUser} placeholder='user' disabled={edit} />
                         </li>
                         <li>
                             <span className='password'>Password:</span>
                             <div className='box-password'>
-                                <input type={show} value={edit ? userpassword : editPassword} onChange={handleChangePassword} placeholder='password' disabled={edit} />
+                                <input type={show} value={edit ? desencrypt(userpassword) : desencrypt(editPassword)} onChange={handleChangePassword} placeholder='password' disabled={edit} />
                                 <button id='show' className='btn-edit' onClick={showPassword}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-eye-fill" viewBox="0 0 16 16">
                                         <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
