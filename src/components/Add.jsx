@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { desencrypt, encrypt } from './../encryption';
+import { encrypt } from './../encryption';
 
 import './../css/Add.css';
-import MessageError from './MessageError';
 import MessageSucces from './MessageSucces';
 
 const Add = () => {
@@ -12,9 +11,8 @@ const Add = () => {
     const [passwordG, setPasswordG] = useState('');
     const [title, setTitle] = useState('');
     const [username, setUsername] = useState('');
-    const [error, setError] = useState(false);
     const [message, setMessage] = useState('');
-    const [succes, setSucces] = useState(false);
+    const [status, setStatus] = useState('');
 
     const BASE_URL = 'https://apex.oracle.com/pls/apex/oskdev/APIPWD/pwds';
 
@@ -70,24 +68,26 @@ const Add = () => {
     const save = async () => {
         if (title.length != 0 && passwordG.length != 0) {
             let password = encrypt(passwordG);
-            console.log('password encrypt: ',password);
-            console.log('password desencrypt: ',desencrypt(password));
+            //console.log('password encrypt: ',password);
+            //console.log('password desencrypt: ',desencrypt(password));
             let user = encrypt(username);
-            console.log('password encrypt: ',user);
-            console.log('password desencrypt: ',desencrypt(user));
+            //console.log('password encrypt: ',user);
+            //console.log('password desencrypt: ',desencrypt(user));
             let object = { TITLE: title, USERNAME: user, USERPASSWORD: password };
             await axios.post(BASE_URL, object)
-                .then(response => console.log('response add: ',response.data))
+                .then(response => response.status == 200 || response.status != '' ? setStatus('succes') : setStatus('error'))
                 .catch(error => {
-                    setError(true);
+                    setStatus('error');
                     setMessage(error);
                 });
-            setError(false);
-            setSucces(true);
-            setMessage('guardado con exito');
+            //console.log('status: ',status);
+            if (status == 'succes') {
+                setMessage('guardado con exito');
+                setTimeout(() => setMessage(''), 3000);
+            }else{
+                setMessage('error al guardar los datos');
+            }
         } else {
-            setSucces(false);
-            setError(true);
             setMessage('Hay espacios vacios en el formulario');
         }
     }
@@ -141,8 +141,7 @@ const Add = () => {
                     <button className='form-submit' type='submit' value='Save' onClick={save}>Save</button>
                 </div>
             </div>
-            {error && <MessageError message={message} />}
-            {succes && <MessageSucces message={message} />}
+            <MessageSucces message={message} />
         </>
     )
 }
