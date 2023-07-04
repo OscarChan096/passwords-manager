@@ -18,6 +18,7 @@ const Cards = ({ pwd }) => {
     const [succes, setSucces] = useState(false);
 
     const BASE_URL = 'https://apex.oracle.com/pls/apex/oskdev/APIPWD/pwds';
+    console.log('cards.pwd: ',pwd);
 
     const handleChangeTitle = (event) => {
         setEditTitle(event.target.value);
