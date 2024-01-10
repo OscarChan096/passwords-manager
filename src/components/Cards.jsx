@@ -3,6 +3,7 @@ import axios from 'axios';
 import MessageError from './MessageError';
 import MessageSucces from './MessageSucces';
 import { desencrypt, encrypt } from '../encryption';
+import { getFecha } from '../sysdate';
 
 import './../css/Cards.css';
 
@@ -16,19 +17,26 @@ const Cards = ({ pwd }) => {
     const [error, setError] = useState(false);
     const [message, setMessage] = useState('');
     const [succes, setSucces] = useState(false);
+    const [changeTitle, setChangeTitle] = useState(false);
+    const [changeUser, setChangeUser] = useState(false);
+    const [changePass, setChangePass] = useState(false);
 
-    const BASE_URL = 'https://apex.oracle.com/pls/apex/oskdev/APIPWD/pwds';
-    console.log('cards.pwd: ',pwd);
+    const BASE_URL = 'http://127.0.0.1:5000/api/pwd/';
+    //const BASE_URL = 'https://apex.oracle.com/pls/apex/oskdev/APIPWD/pwds';
+    //console.log('cards.pwd: ', pwd);
 
     const handleChangeTitle = (event) => {
+        setChangeTitle(true);
         setEditTitle(event.target.value);
     }
 
     const handleChangeUser = (event) => {
+        setChangeUser(true);
         setEditUser(event.target.value);
     }
 
     const handleChangePassword = (event) => {
+        setChangePass(true);
         setEditPassword(event.target.value);
     }
 
@@ -48,23 +56,29 @@ const Cards = ({ pwd }) => {
     }
 
     const update = async (id) => {
-        let password = encrypt(editPassword);
-        let user = encrypt(editUser);
-        let load = { ID:id, TITLE: editTitle, USERNAME: user, USERPASSWORD: password }
-        await axios.put(BASE_URL, load)
-            .then(response => console.log(response))
-            .catch(error => {
-                setError(true);
-                setMessage(error);
-            });
-        setEdit(!edit);
-        setMessage('Actualizado');
-        setSucces(true);
+        if (changeTitle || changeUser || changePass) {
+            let fechmodif = getFecha();
+            let password = changePass ? encrypt(editPassword):editPassword;
+            let user = changeUser ? encrypt(editUser):editUser;
+            let load = { TITLE: editTitle, USERNAME: user, USERPASSWORD: password, FECHMODIF: fechmodif }
+            await axios.put(`${BASE_URL}/${id}`, load)
+                .then(response => console.log(response))
+                .catch(error => {
+                    setError(true);
+                    setMessage(error);
+                });
+            setEdit(!edit);
+            setMessage('Actualizado');
+            setSucces(true);
+            setChangeTitle(false);
+            setChangeUser(false);
+            setChangePass(false);
+        }
     }
 
     const del = async (id) => {
         // crear una ventana modal de confirmacion
-        let del = { ID:id }
+        let del = { ID: id }
         await axios.delete(BASE_URL, del)
             .then(response => console.log(response))
             .catch(error => {
@@ -76,23 +90,23 @@ const Cards = ({ pwd }) => {
     }
 
     return (
-        pwd.map(({ id, title, username, userpassword }, index) => (
+        pwd.map(({ ID, TITLE, USERNAME, USERPASSWORD, FECHMODIF }, index) => (
             <div key={index} className='card'>
                 <div className='info-card'>
                     <ul>
-                        <li><span className='id'>id: </span>{id}</li>
+                        <li><span className='id'>id: </span>{ID}</li>
                         <li>
                             <span className='title'>Title:</span>
-                            <input type='text' value={edit ? title : editTitle} onChange={handleChangeTitle} placeholder='title' disabled={edit} />
+                            <input type='text' value={edit ? TITLE : editTitle} onChange={handleChangeTitle} placeholder='title' disabled={edit} />
                         </li>
                         <li>
                             <span className='user'>User:</span>
-                            <input type='text' value={edit ? desencrypt(username) : desencrypt(editUser)} onChange={handleChangeUser} placeholder='user' disabled={edit} />
+                            <input type='text' value={edit ? desencrypt(USERNAME) : desencrypt(editUser)} onChange={handleChangeUser} placeholder='user' disabled={edit} />
                         </li>
                         <li>
                             <span className='password'>Password:</span>
                             <div className='box-password'>
-                                <input type={show} value={edit ? desencrypt(userpassword) : desencrypt(editPassword)} onChange={handleChangePassword} placeholder='password' disabled={edit} />
+                                <input type={show} value={edit ? desencrypt(USERPASSWORD) : desencrypt(editPassword)} onChange={handleChangePassword} placeholder='password' disabled={edit} />
                                 <button id='show' className='btn-edit' onClick={showPassword}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-eye-fill" viewBox="0 0 16 16">
                                         <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
@@ -105,11 +119,11 @@ const Cards = ({ pwd }) => {
                 </div>
                 <div className='edit-card'>
                     {edit ?
-                        (<button id='edit' className='btn-edit' onClick={() => editable(title, username, userpassword, index)}>Editar</button>)
+                        (<button id='edit' className='btn-edit' onClick={() => editable(TITLE, USERNAME, USERPASSWORD, index)}>Editar</button>)
                         :
-                        (<button id='save' className='btn-edit' onClick={() => update(id)}>Guardar</button>)
+                        (<button id='save' className='btn-edit' onClick={() => update(ID)}>Guardar</button>)
                     }
-                    <button id='delete' className='btn-edit' onClick={() => del(id)}>Eliminar</button>
+                    <button id='delete' className='btn-edit' onClick={() => del(ID)}>Eliminar</button>
                 </div >
                 {!edit && <button id='cancel' className='btn-edit' onClick={editable}>Cancelar</button>}
                 {error && <MessageError message={message} />}

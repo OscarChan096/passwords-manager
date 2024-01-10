@@ -12,6 +12,9 @@ h1.title{
 }
 
 img.logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     max-width: 50%;
     margin: 20%;
     border: 2px solid #007145;
@@ -24,7 +27,15 @@ img.logo:hover{
     transition: .8s;
 }
 
-label{
+.by{
+    display: flex;
+    justify-content: center;
     font-size: 1rem;
-    margin: 20% 0 0 30%;
+}
+
+.edition{  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1.5rem;
 }

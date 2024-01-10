@@ -1,0 +1,90 @@
+.div-infCard{
+    display: flex;
+}
+
+.date,.cvv,.nip{
+    width: 25%;
+}
+
+.infoCardInput{
+    width: 100%;
+}
+
+.Bdata{
+    display: flex;
+    margin: 2%;
+}
+
+.BCards{
+    width: 28%;
+    margin: 15px;
+    padding: 2%;
+    border: 1px solid #007145;
+    border-radius: 10px;
+    transition: .5s;
+}
+
+.BCards:hover{
+    box-shadow: 0 0 100nom runpx rgba(0, 228, 95, .3);
+}
+
+.card .info-card{
+    padding: 10px;
+}
+
+li{
+    margin-bottom: 15px;
+}
+
+.edit-card{
+    display: flex;
+    padding: 15px;
+    justify-content: center;
+}
+
+.edit-card button:active{
+    background-color: #002e1c;
+    border: 1px solid #002e1c;
+}
+
+
+.btn-edit{
+    margin: 0 0 0 10px;
+    padding: 8px;
+    border: 1px solid #007145;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.btn-edit:hover{
+    color: white;
+    background-color: #007145;
+}
+
+.info-card input{
+    padding: 10px 0 5px 0;
+    border-bottom: 1px solid #007145;
+    border-bottom-right-radius: 10px;
+    outline: #007145;
+}
+
+li .box-password{
+    display: flex;
+}
+
+.box-password button{
+    margin: 0;
+    position: relative;
+    margin-left: -16%;
+    padding: 10px;
+    border-radius: 100px;
+    border: 0;
+}
+
+.box-password button:active{
+    background-color: #002e1c;
+}
+
+.card #cancel{
+    margin: auto;
+}

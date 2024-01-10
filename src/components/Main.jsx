@@ -20,6 +20,10 @@ const main = () => {
         navigate('/add');
     }
 
+    const cards = () => {
+        navigate('/cards');
+    }
+
     const about = () => {
         navigate('/about');
     }
@@ -41,6 +45,7 @@ const main = () => {
                     <ul className='header-ul'>
                         <li className='header-li' onClick={main}>Inicio</li>
                         <li className='header-li' onClick={add}>Add</li>
+                        <li className='header-li' onClick={cards}>Cards</li>
                         <li className='header-li' onClick={about}>About</li>
                     </ul>
                 </nav>
