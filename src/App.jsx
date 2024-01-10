@@ -7,6 +7,9 @@ import './App.css';
 import About from './components/About';
 import ProtectedRoute from './components/ProtectedRoute';
 import Dashboard from './components/Dashboard';
+import BanksCards from './components/BanksCards';
+import AddPWD from './components/AddPWD';
+import AddCard from './components/AddCard';
 
 function App() {
 
@@ -23,6 +26,9 @@ function App() {
 				<Route element={<ProtectedRoute isAuth={isUserLogged} userLogged={(value) => setIsUserLogged(value)} />}>
 					<Route path='/sp' element={<Dashboard />} />
 					<Route path='/add' element={<Add />} />
+					<Route path='/add/pwd' element={<AddPWD />} />
+					<Route path='/add/card' element={<AddCard />} />
+					<Route path='/cards' element={<BanksCards />} />
 					<Route path='/about' element={<About />} />
 				</Route>
 

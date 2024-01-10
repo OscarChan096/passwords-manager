@@ -1,3 +1,43 @@
+.content-adds{
+    display: flex;
+    margin: 8% 5%;
+}
+
+.col-1{
+    padding: 10%;
+    font-size: 5rem;
+    border-right: solid 1px;
+    user-select: none;
+}
+
+.col-2{
+    padding: 10%;
+    font-size: 5rem;
+    border-left: solid 1px;
+    user-select: none;
+}
+
+.addpwd-span,.addcard-span{
+    border-radius: 50px;
+    transition: box-shadow 0.5s ease-in-out;
+    cursor: pointer;
+    
+}
+
+.addpwd-span:hover{
+    box-shadow: 1px 1px 500px 90px rgba(0, 77, 47, 1);
+    background-color: rgba(0, 77, 47, .5);
+    color: #cfcfcf;
+    transition: 0.5s ease-in-out;
+}
+
+.addcard-span:hover{
+    box-shadow: 1px 1px 500px 90px rgba(0, 77, 47, 1);
+    background-color: rgba(0, 77, 47, .5);
+    color: #cfcfcf;
+    transition: 0.5s ease-in-out;
+}
+
 .form-add{
     display: flex;
     margin-top: 15%;

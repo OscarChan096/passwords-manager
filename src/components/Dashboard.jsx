@@ -11,11 +11,13 @@ export default function Dashboard() {
     const [title, setTitle] = useState('');
     const [find, setFind] = useState([]);
 
-    const BASE_URL = 'https://apex.oracle.com/pls/apex/oskdev/APIPWD/pwds';
+    const BASE_URL = 'http://127.0.0.1:5000/api/pwd/';
+    //const BASE_URL = 'https://apex.oracle.com/pls/apex/oskdev/APIPWD/pwds';
 
-    /*const requests = {
+    const requests = {
         spTitle: `${BASE_URL}title/`,
-    }*/
+    }
+    //console.log("REQUEST TITLE",requests.spTitle);
 
     // cada vez que se agregue datos a "title" se invoca este useEffect para buscar el valor de title en la base de datos
     /*useEffect(() => {
@@ -26,15 +28,45 @@ export default function Dashboard() {
         }
     }, [title]);*/
 
-    useEffect(() => {
+    /*useEffect(() => {
         axios.get(BASE_URL)
             .then(({ data }) => setPwd(data.items))
             .catch((error) => console.log('error calling pwd', error))
-    },[]);
+    },[]);*/
+
+    /*useEffect(() => {
+        let URL_REST = `${BASE_URL}?TITLE=${title.toLocaleLowerCase()}`;
+        //console.log('URL_REST: ',URL_REST); 
+        if (title) {
+            axios.get(URL_REST)
+                .then(({ data }) => setPwd(data.items))
+                .catch((error) => console.log('error calling pwd', error))
+            console.log('pwd: ',pwd);
+            console.log('title: ',title);
+        }else{
+            setPwd([]);
+        }
+    }, [title]);*/
+
+    useEffect(() => {
+        let URL_REST = `${requests.spTitle}${title.toLocaleLowerCase()}`;
+        console.log('URL_REST: ',URL_REST); 
+        if (title) {
+            axios.get(URL_REST)
+                .then(({ data }) => setPwd(data))
+                .catch((error) => console.log('error calling pwd', error))
+            console.log('pwd: ',pwd);
+            console.log('title: ',title);
+        }else{
+            setPwd([]);
+        }
+    }, [title]);
 
     const handleChange = (event) => {
-        setFind(pwd.filter(({title}) => title == event.target.value));
-        setTitle(event.target.value);
+        //setFind(pwd.filter(({title}) => title == event.target.value));
+        //setFind(pwd);
+        let inputText = event.target.value;
+        setTitle(inputText);
     }
 
     return (
@@ -60,10 +92,11 @@ export default function Dashboard() {
 
             <div className='content'>
                 <div className='data'>
-                    {Object.values(find).length == 0 ?
+                    {Object.values(pwd).length == 0 ?
                         (<LoadingData />)
                         :
-                        (<Cards pwd={find} />)}
+                        //(<Cards pwd={find} />)
+                        (<Cards pwd={pwd} />)}
                 </div>
             </div>
         </>

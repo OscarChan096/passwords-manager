@@ -7,9 +7,10 @@ const About = () => {
     return (
         <div className='content-about'>
             <div className='about'>
-                <h1 className='title'>~/0SKR&gt;PASSWORDS_</h1>
+                <h1 className='title'>~/0SKR&gt;PASSWORDS_V2</h1>
                 <img className='logo' src={logo} alt='logo' />
-                <label>By Oscar Chan</label>
+                <label className='by'>By Oscar Chan</label>
+                <label className='edition'>Edition LH</label>
             </div>
         </div>
     )
