@@ -90,15 +90,16 @@ export default function Dashboard() {
                 </div>
             </div>
 
-            <div className='content'>
+            {//<div className='content'>
+            console.log("")}
                 <div className='data'>
                     {Object.values(pwd).length == 0 ?
                         (<LoadingData />)
                         :
-                        //(<Cards pwd={find} />)
                         (<Cards pwd={pwd} />)}
                 </div>
-            </div>
+            {//</div>
+            console.log("")}
         </>
     )
 }

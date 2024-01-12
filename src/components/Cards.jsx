@@ -4,6 +4,7 @@ import MessageError from './MessageError';
 import MessageSucces from './MessageSucces';
 import { desencrypt, encrypt } from '../encryption';
 import { getFecha } from '../sysdate';
+import ConfirmationModal from './ConfirmationModal';
 
 import './../css/Cards.css';
 
@@ -20,6 +21,7 @@ const Cards = ({ pwd }) => {
     const [changeTitle, setChangeTitle] = useState(false);
     const [changeUser, setChangeUser] = useState(false);
     const [changePass, setChangePass] = useState(false);
+    const [auxId, setAuxId] = useState('');
 
     const BASE_URL = 'http://127.0.0.1:5000/api/pwd/';
     //const BASE_URL = 'https://apex.oracle.com/pls/apex/oskdev/APIPWD/pwds';
@@ -55,11 +57,33 @@ const Cards = ({ pwd }) => {
             setShow('password');
     }
 
+    const confirmationModal = async (confirm) => {
+        if ({ confirm }) {
+            await axios.delete(`${BASE_URL}${auxId}`)
+                .then(response => messageResponse(response.status))
+                .catch(error => {
+                    setError(true);
+                    setMessage(error);
+                });
+        }
+    };
+
+    const auxIdModal = ({id}) => {
+        setAuxId(id);
+    }
+
+    const messageResponse = (status) => {
+        if(status == 204){
+            setSucces(true);
+            setMessage('Eliminado con éxito');
+        }
+    }
+
     const update = async (id) => {
         if (changeTitle || changeUser || changePass) {
             let fechmodif = getFecha();
-            let password = changePass ? encrypt(editPassword):editPassword;
-            let user = changeUser ? encrypt(editUser):editUser;
+            let password = changePass ? encrypt(editPassword) : editPassword;
+            let user = changeUser ? encrypt(editUser) : editUser;
             let load = { TITLE: editTitle, USERNAME: user, USERPASSWORD: password, FECHMODIF: fechmodif }
             await axios.put(`${BASE_URL}/${id}`, load)
                 .then(response => console.log(response))
@@ -74,19 +98,6 @@ const Cards = ({ pwd }) => {
             setChangeUser(false);
             setChangePass(false);
         }
-    }
-
-    const del = async (id) => {
-        // crear una ventana modal de confirmacion
-        let del = { ID: id }
-        await axios.delete(BASE_URL, del)
-            .then(response => console.log(response))
-            .catch(error => {
-                setError(true);
-                setMessage(error);
-            });
-        setMessage('elminado');
-        setSucces(true);
     }
 
     return (
@@ -123,10 +134,10 @@ const Cards = ({ pwd }) => {
                         :
                         (<button id='save' className='btn-edit' onClick={() => update(ID)}>Guardar</button>)
                     }
-                    <button id='delete' className='btn-edit' onClick={() => del(ID)}>Eliminar</button>
+                    <ConfirmationModal id={ID} confirmModal={confirmationModal} auxIdModal={auxIdModal}/>
                 </div >
                 {!edit && <button id='cancel' className='btn-edit' onClick={editable}>Cancelar</button>}
-                {error && <MessageError message={message} />}
+                {error ? <MessageError message={message} /> : ''}
                 {succes && <MessageSucces message={message} />}
             </div>
         ))

@@ -3,10 +3,13 @@ import axios from "axios";
 import MessageError from './MessageError';
 import MessageSucces from './MessageSucces';
 import { encrypt, desencrypt } from "../encryption";
+import ConfirmationModal from './ConfirmationModal';
 
 import '../css/BCards.css';
 
 const BCards = ({ infoCards }) => {
+
+    let auxID = '';
 
     const [editNameBank, setEditNameBank] = useState('');
     const [editAccNum, setEditAccNum] = useState('');
@@ -26,6 +29,7 @@ const BCards = ({ infoCards }) => {
     const [error, setError] = useState(false);
     const [message, setMessage] = useState('');
     const [succes, setSucces] = useState(false);
+    const [axId, setAxId] = useState('');
 
     const [changeNameBank, setChangeNameBank] = useState(false);
     const [changeAccNum, setChangeAccNum] = useState(false);
@@ -101,6 +105,32 @@ const BCards = ({ infoCards }) => {
         console.log(index);
     }
 
+    const confirmationModal = async (confirm) => {
+        console.log('ENDPOINT:',`${BASE_URL}/${auxID}`);
+        if ({ confirm }) {
+            await axios.delete(`${BASE_URL}/${auxID}`)
+            .then(response => messageResponse(response.status))
+            .catch(error => {
+                setError(true);
+                setMessage(`Error: ${error}`);
+            });
+        }
+    };
+
+    const auxIdModal = ( id ) => {
+        //setAxId(id);
+        auxID = id;
+        console.log('auxID',auxID);
+    }
+
+    const messageResponse = (status) => {
+        if (status == 204) {
+            setSucces(true);
+            setMessage('Eliminado con éxito');
+            setError(false);
+        }
+    }
+
     const update = async (id) => {
         let name_bank = changeNameBank ? editNameBank : auxNameBank;
         let accNum = changeAccNum ? encrypt(editAccNum) : editAccNum;
@@ -130,18 +160,14 @@ const BCards = ({ infoCards }) => {
         setChangeTypeCard(false);
     }
 
-    const del = async (id) => {
-        // crear una ventana modal de confirmacion
-        console.log("delete:",);
+    /*const del = async (id) => {
         await axios.delete(`${BASE_URL}/${id}`)
             .then(response => console.log(response))
             .catch(error => {
                 setError(true);
                 setMessage(error);
             });
-        setMessage('elminado');
-        setSucces(true);
-    }
+    }*/
 
     return (
         infoCards.map(({ id, bank_name, account_number, date, cvv, nip, app_user_name, app_password, type }, index) => (
@@ -188,7 +214,7 @@ const BCards = ({ infoCards }) => {
                         :
                         (<button id='save' className='btn-edit' onClick={() => update(id)}>Guardar</button>)
                     }
-                    <button id='delete' className='btn-edit' onClick={() => del(id)}>Eliminar</button>
+                    <ConfirmationModal id={id} confirmModal={confirmationModal} auxIdModal={auxIdModal}/>
                 </div >
                 {!edit && <button id='cancel' className='btn-edit' onClick={editable}>Cancelar</button>}
                 {error && <MessageError message={message} />}
