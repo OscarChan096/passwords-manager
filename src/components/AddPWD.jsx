@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { encrypt } from './../encryption';
+import { desencrypt, encrypt } from './../encryption';
 import { getFecha } from '../sysdate';
 
 import './../css/Add.css';
@@ -17,6 +17,9 @@ const AddPWD = () => {
 
     const BASE_URL = 'http://127.0.0.1:5000/api/pwd/';
     //const BASE_URL = 'https://apex.oracle.com/pls/apex/oskdev/APIPWD/pwds';
+    const requests = {
+        spUser: `${BASE_URL}user/`,
+    }
 
     const generatePassword = () => {
         let pwd = '';
@@ -60,7 +63,8 @@ const AddPWD = () => {
             //console.log('password encrypt: ',user);
             //console.log('password desencrypt: ',desencrypt(user));
             let fechsave = getFecha();
-            let object = { TITLE: title, USERNAME: user, USERPASSWORD: password, FECHMODIF: fechsave };
+            containsUser();
+            /*let object = { TITLE: title, USERNAME: user, USERPASSWORD: password, FECHMODIF: fechsave };
             await axios.post(BASE_URL, object)
                 .then(response => response.status == 200 || response.status != '' ? setStatus('succes') : setStatus('error'))
                 .catch(error => {
@@ -73,10 +77,18 @@ const AddPWD = () => {
                 setTimeout(() => setMessage(''), 3000);
             } else {
                 setMessage('error al guardar los datos');
-            }
+            }*/
         } else {
             setMessage('Hay campos vacios en el formulario');
         }
+    }
+
+    const containsUser = ()=>{
+        let URL_REST = `${requests.spUser}${username.toLocaleLowerCase()}`;
+        let userName = '';
+        axios.get(URL_REST)
+                .then(({ data }) => console.log("containsUser",data))
+                .catch((error) => console.log('error calling pwd', error))
     }
 
     return (

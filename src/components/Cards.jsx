@@ -83,8 +83,8 @@ const Cards = ({ pwd }) => {
         if (changeTitle || changeUser || changePass) {
             let fechmodif = getFecha();
             let password = changePass ? encrypt(editPassword) : editPassword;
-            let user = changeUser ? encrypt(editUser) : editUser;
-            let load = { TITLE: editTitle, USERNAME: user, USERPASSWORD: password, FECHMODIF: fechmodif }
+            //let user = changeUser ? encrypt(editUser) : editUser;
+            let load = { TITLE: editTitle, USERNAME: editUser, USERPASSWORD: password, FECHMODIF: fechmodif }
             await axios.put(`${BASE_URL}/${id}`, load)
                 .then(response => console.log(response))
                 .catch(error => {
@@ -105,7 +105,10 @@ const Cards = ({ pwd }) => {
             <div key={index} className='card'>
                 <div className='info-card'>
                     <ul>
-                        <li><span className='id'>id: </span>{ID}</li>
+                        <li>
+                            <span className='id'>id: </span>{ID}
+                            <span className='fechaModif'>{FECHMODIF}</span>
+                        </li>
                         <li>
                             <span className='title'>Title:</span>
                             <input type='text' value={edit ? TITLE : editTitle} onChange={handleChangeTitle} placeholder='title' disabled={edit} />
