@@ -5,6 +5,7 @@ import MessageSucces from './MessageSucces';
 import { desencrypt, encrypt } from '../encryption';
 import { getFecha } from '../sysdate';
 import ConfirmationModal from './ConfirmationModal';
+import { DATA } from '../../properties';
 
 import './../css/Cards.css';
 
@@ -23,7 +24,9 @@ const Cards = ({ pwd }) => {
     const [changePass, setChangePass] = useState(false);
     const [auxId, setAuxId] = useState('');
 
-    const BASE_URL = 'http://127.0.0.1:5000/api/pwd/';
+    const BASE_URL = DATA.BASE_URL_PWD;
+    console.log('Cards - BASE_URL:',BASE_URL);
+    //const BASE_URL = 'http://127.0.0.1:5000/api/pwd/';
     //const BASE_URL = 'https://apex.oracle.com/pls/apex/oskdev/APIPWD/pwds';
     //console.log('cards.pwd: ', pwd);
 

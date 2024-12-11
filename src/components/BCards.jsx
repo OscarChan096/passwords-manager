@@ -4,6 +4,7 @@ import MessageError from './MessageError';
 import MessageSucces from './MessageSucces';
 import { encrypt, desencrypt } from "../encryption";
 import ConfirmationModal from './ConfirmationModal';
+import { DATA } from '../../properties';
 
 import '../css/BCards.css';
 
@@ -40,7 +41,9 @@ const BCards = ({ infoCards }) => {
     const [changeAppPass, setChangeAppPass] = useState(false);
     const [changeTypeCard, setChangeTypeCard] = useState(false);
 
-    const BASE_URL = 'http://127.0.0.1:5000/api/pwd/bank/card';
+    const BASE_URL = DATA.BASE_URL_PWD+'bank/card';
+    console.log('BCards - BASE_URL:',BASE_URL);
+    //const BASE_URL = 'http://127.0.0.1:5000/api/pwd/bank/card';
 
     const handleChangeNameBank = (event) => {
         setChangeNameBank(true);

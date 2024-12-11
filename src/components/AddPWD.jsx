@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { desencrypt, encrypt } from './../encryption';
 import { getFecha } from '../sysdate';
+import { DATA } from '../../properties';
 
 import './../css/Add.css';
 import MessageSucces from './MessageSucces';
@@ -15,7 +16,9 @@ const AddPWD = () => {
     const [message, setMessage] = useState('');
     const [status, setStatus] = useState('');
 
-    const BASE_URL = 'http://127.0.0.1:5000/api/pwd/';
+    const BASE_URL = DATA.BASE_URL_PWD;
+    console.log('AddPWD - BASE_URL:',BASE_URL);
+    //const BASE_URL = 'http://127.0.0.1:5000/api/pwd/';
     //const BASE_URL = 'https://apex.oracle.com/pls/apex/oskdev/APIPWD/pwds';
     const requests = {
         spUser: `${BASE_URL}user/`,

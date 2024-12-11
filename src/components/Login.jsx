@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { DATA } from '../../properties';
 
 import './../css/Login.css';
 import MessageError from './MessageError';
 
 const Login = ({ userLogged }) => {
 
-    const BASE_URL = 'http://127.0.0.1:5000/api/pwd/uapwd/';
+    const BASE_URL = DATA.BASE_URL_PWD+'uapwd/';
+    console.log('Login - BASE_URL:',BASE_URL);
+    //const BASE_URL = 'http://127.0.0.1:5000/api/pwd/uapwd/';
 
     const navigate = useNavigate();
     const [user, setUser] = useState('');
