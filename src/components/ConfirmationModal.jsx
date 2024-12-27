@@ -13,8 +13,6 @@ const ConfirmationModal = ({ id, confirmModal, auxIdModal }) => {
     const [state, setState] = useState(false);
 
     const [isOpen, setIsOpen] = useState(false);
-    const BASE_URL = DATA.BASE_URL_PWD;
-    console.log('ConfirmationModal - BASE_URL:',BASE_URL);
 
     const customStyles = {
         content: {
@@ -40,14 +38,11 @@ const ConfirmationModal = ({ id, confirmModal, auxIdModal }) => {
         setIsOpen(false);
     };
 
-    const handleConfirm = () => {
+    const handleConfirm = async () => {
         console.log('handelConfirm-ID',id);
         auxIdModal(id);
         confirmModal(state);
         setState(true);
-        axios.delete(`${BASE_URL}${id}`)
-                .response
-                .catch((error) => console.log('error calling pwd', error))
         closeModal();
     };
 
