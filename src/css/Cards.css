@@ -1,6 +1,6 @@
 .card{
-    margin: 15px;
-    padding: 5%;
+    margin: 20px;
+    padding: 1%;
     border: 1px solid #007145;
     border-radius: 10px;
 }
@@ -26,8 +26,8 @@ li{
 
 
 .btn-edit{
-    margin: 10px;
-    padding: 8px;
+    height: 32px;
+    top: 3px;
     border: 1px solid #007145;
     border-radius: 10px;
     cursor: pointer;
@@ -45,15 +45,13 @@ li{
     outline: #007145;
 }
 
-li .box-password{
-    display: flex;
+li .container-pass{
+    height: 32px;
 }
 
-.box-password button{
+.content-ico-copy button{
     margin: 0;
     position: relative;
-    margin-left: -16%;
-    padding: 10px;
     border-radius: 100px;
     border: 0;
 }
@@ -64,4 +62,27 @@ li .box-password{
 
 .card #cancel{
     margin: auto;
+}
+
+.fechaModif{
+    margin-left: 25%;
+}
+
+.container-user{
+    display: flex;
+}
+
+.container-pass{
+    display: flex;
+}
+
+.content-ico-copy{
+    display: flex;
+}
+
+.ico-copy{
+    padding: 5px;
+    border: 1px solid #000;
+    border-radius: 100px;
+    cursor: pointer;
 }

@@ -13,7 +13,7 @@
 
 }
 
-.pin-login{
+.pin-login,.user-login{
     width: 85%;  
     padding: 10px;
     border: 1px solid #007145;
@@ -23,7 +23,7 @@
     text-align: center;
 }
 
-.pin-login::placeholder{
+.pin-login::placeholder,.user-login::placeholder{
     color: #00472c;
 }
 

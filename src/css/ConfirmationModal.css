@@ -1,0 +1,37 @@
+.title{
+    font-weight: bold;
+}
+
+.text-quest{
+    margin-top: 8%;
+}
+
+.content-btn{
+    display: flex;
+    margin-top: 20%;
+}
+
+.confirm{
+    padding: 2%;
+    border-radius: 7px;
+    background-color: rgb(100, 0, 0);
+    margin-right: 55%;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.confirm:hover{
+    background-color: rgb(177, 0, 0);
+}
+
+.cancel{
+    padding: 2%;
+    border-radius: 7px;
+    background-color: #007145;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.cancel:hover{
+    background-color: #00b36e;
+}

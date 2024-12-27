@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import LoadingData from './LoadingData';
 import Cards from './Cards';
+import { DATA } from '../../properties';
 
 import './../css/Dashboard.css';
 
@@ -11,7 +12,9 @@ export default function Dashboard() {
     const [title, setTitle] = useState('');
     const [find, setFind] = useState([]);
 
-    const BASE_URL = 'http://127.0.0.1:5000/api/pwd/';
+    const BASE_URL = DATA.BASE_URL_PWD;
+    console.log('Dashboard - BASE_URL:',BASE_URL);
+    //const BASE_URL = 'http://127.0.0.1:5000/api/pwd/';
     //const BASE_URL = 'https://apex.oracle.com/pls/apex/oskdev/APIPWD/pwds';
 
     const requests = {
@@ -90,15 +93,16 @@ export default function Dashboard() {
                 </div>
             </div>
 
-            <div className='content'>
+            {//<div className='content'>
+            console.log("")}
                 <div className='data'>
                     {Object.values(pwd).length == 0 ?
                         (<LoadingData />)
                         :
-                        //(<Cards pwd={find} />)
                         (<Cards pwd={pwd} />)}
                 </div>
-            </div>
+            {//</div>
+            console.log("")}
         </>
     )
 }
