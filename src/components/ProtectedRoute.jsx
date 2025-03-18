@@ -7,7 +7,7 @@ const ProtectedRoute = ({
     redirectTo = '/login',
     userLogged
 }) => {
-
+    console.log("# PUNTO DE CONTROL 0 | ProtectedRoute | isAuth: "+isAuth);
     if(!isAuth){
         return <Navigate to={redirectTo} replace />
     }
