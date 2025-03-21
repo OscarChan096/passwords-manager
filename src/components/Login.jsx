@@ -38,11 +38,17 @@ const Login = ({ userLogged }) => {
 
     const validateLogin = (event) => {
         event.preventDefault();
-        if (pin == pinAux) {
+        console.log("# PUNTO DE CONTROL 0 | validateLogin | PIN: "+pin+" | pinAux: "+pinAux);
+        if (pin == pinAux && pin.length > 0 && pinAux.length > 0) {
+            console.log("# PUNTO DE CONTROL 1 | validateLogin | PIN: "+pin+" | pinAux: "+pinAux);
             userLogged(true);
+            console.log("# PUNTO DE CONTROL 2 | validateLogin");
             navigate('/sp');
+            console.log("# PUNTO DE CONTROL 3 | validateLogin");
         } else {
+            console.log("# PUNTO DE CONTROL 4 | validateLogin");
             setShow(true);
+            console.log("# PUNTO DE CONTROL 5 | validateLogin");
         }
     }
 
